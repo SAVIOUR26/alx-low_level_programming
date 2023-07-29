@@ -1,18 +1,23 @@
 #include "main.h"
-
+#include <stdio.h>
 /**
-*	clear_bit – bit value set to 0
-*	@n: pointer 2 no. changes
-*	@index: clears index of the bit 
-*
-*	Return: success 1, failure -1
-*/
+ * clear_bit - this sets the value of the bit to 0 at the given index
+ * @n: pointer to the decimal number to change
+ * @index: the index position to change
+ * Return: if it worked 1 & if an error -1 
+ */
 int clear_bit(unsigned long int *n, unsigned int index)
 {
-if (index > 63)
-return (-1);
+	unsigned long int i;
+	unsigned int hold;
 
-*n = (~(1UL << index) & *n); return (1);
-}
- 
+	if (index > 64)
+		return (-1);
+	hold = index;
+	for (i = 1; hold > 0; i *= 2, hold--)
+		;
 
+	if ((*n >> index) & 1)
+		*n -= i;
+
+	return (1);
